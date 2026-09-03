@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>成人世界,你最怕失去的是什麼?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #14110D;
+    --bg-deep: #0D0B08;
+    --card: #1D1812;
+    --card-line: #332B22;
+    --gold: #B9925B;
+    --gold-soft: #8A6E48;
+    --wine: #7A3B32;
+    --text: #EDE6D9;
+    --text-muted: #8F8676;
+    --text-faint: #5C564A;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(120% 90% at 50% 0%, #1B1611 0%, var(--bg-deep) 60%);
+    color: var(--text);
+    font-family: 'Noto Sans TC', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 0 0 96px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  .page{
+    width: 100%;
+    max-width: 480px;
+    padding: 0 28px;
+  }
+
+  /* ---------- Hero ---------- */
+
+  .hero{
+    padding: 76px 0 40px;
+    text-align: center;
+  }
+
+  .hero .mark{
+    width: 34px;
+    height: 34px;
+    margin: 0 auto 28px;
+    border: 1px solid var(--gold-soft);
+    border-radius: 50%;
+    position: relative;
+    opacity: 0.85;
+  }
+  .hero .mark::after{
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border: 1px solid var(--gold-soft);
+    border-radius: 50%;
+  }
+
+  .hero h1{
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    margin: 0 0 18px;
+    color: var(--text);
+  }
+
+  .hero p{
+    font-size: 14.5px;
+    line-height: 1.9;
+    color: var(--text-muted);
+    margin: 0;
+    max-width: 34ch;
+    margin-inline: auto;
+  }
+
+  /* ---------- Question ---------- */
+
+  .question{
+    margin-top: 8px;
+  }
+
+  .question-text{
+    font-family: 'Noto Serif TC', serif;
+    font-size: 19px;
+    line-height: 1.85;
+    color: var(--text);
+    padding: 30px 26px 34px;
+    border-top: 1px solid var(--card-line);
+    border-bottom: 1px solid var(--card-line);
+    text-align: center;
+  }
+
+  .options{
+    list-style: none;
+    margin: 34px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .option{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--card-line);
+    border-radius: 4px;
+    padding: 16px 18px;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    transition: border-color 0.25s ease, background 0.25s ease;
+  }
+
+  .option:hover{
+    border-color: var(--gold-soft);
+  }
+
+  .option .tag{
+    flex: 0 0 auto;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1px solid var(--card-line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 13px;
+    color: var(--text-muted);
+    transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
+  }
+
+  .option .label{
+    flex: 1 1 auto;
+    line-height: 1.6;
+  }
+
+  .option.selected{
+    border-color: var(--gold);
+    background: linear-gradient(180deg, rgba(185,146,91,0.08), rgba(185,146,91,0.03));
+  }
+
+  .option.selected .tag{
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(185,146,91,0.12);
+  }
+
+  .option.dimmed{
+    opacity: 0.45;
+  }
+
+  /* ---------- Reveal ---------- */
+
+  .reveal{
+    margin-top: 40px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.6s ease, opacity 0.5s ease 0.05s;
+  }
+
+  .reveal.open{
+    max-height: 900px;
+    opacity: 1;
+  }
+
+  .reveal-inner{
+    border-top: 1px solid var(--card-line);
+    padding-top: 32px;
+  }
+
+  .reveal-eyebrow{
+    font-size: 12.5px;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+    margin: 0 0 12px;
+  }
+
+  .reveal h2{
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 1.6;
+    margin: 0 0 18px;
+    color: var(--text);
+  }
+
+  .reveal p{
+    font-size: 14.5px;
+    line-height: 2;
+    color: var(--text-muted);
+    margin: 0 0 16px;
+  }
+
+  .reveal p:last-child{
+    margin-bottom: 0;
+  }
+
+  .reveal .keyword{
+    color: var(--text);
+  }
+
+  .reveal-footnote{
+    margin-top: 30px;
+    padding-top: 22px;
+    border-top: 1px solid var(--card-line);
+    font-size: 12.5px;
+    line-height: 1.9;
+    color: var(--text-faint);
+    text-align: center;
+  }
+
+  .restart{
+    display: block;
+    margin: 22px auto 0;
+    background: none;
+    border: none;
+    color: var(--text-faint);
+    font-size: 12.5px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+  .restart:hover{ color: var(--gold); }
+
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="mark"></div>
+    <h1>成人世界,<br>你最怕失去的是什麼?</h1>
+    <p>選一個當下最有感覺的答案,不用想太久 —— 答案沒有對錯,只有誠實。</p>
+  </div>
+
+  <div class="question">
+    <div class="question-text">
+      如果人生只能留住一件東西,<br>你會留住——
+    </div>
+
+    <ul class="options" id="options">
+      <li class="option" data-key="A">
+        <span class="tag">A</span>
+        <span class="label">別人對你的認可</span>
+      </li>
+      <li class="option" data-key="B">
+        <span class="tag">B</span>
+        <span class="label">一段還在維繫的關係</span>
+      </li>
+      <li class="option" data-key="C">
+        <span class="tag">C</span>
+        <span class="label">現在擁有的位置與成就</span>
+      </li>
+      <li class="option" data-key="D">
+        <span class="tag">D</span>
+        <span class="label">一個人也能安心的自由</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="reveal" id="reveal">
+    <div class="reveal-inner">
+      <p class="reveal-eyebrow" id="reveal-eyebrow">你選了 A</p>
+      <h2 id="reveal-title">你怕的不是失敗,是被看見不夠好</h2>
+      <div id="reveal-body"></div>
+    </div>
+
+    <div class="reveal-footnote">
+      這是根據你的選擇做的心理側寫,提供自我覺察的參考,<br>不是診斷,也不能代替專業協助。
+    </div>
+
+    <button class="restart" id="restart">重新選一次</button>
+  </div>
+
+</div>
+
+<script>
+  const analyses = {
+    A: {
+      title: "你怕的不是失敗,是被看見不夠好",
+      body: [
+        "選這個答案的人,通常很早就學會用「表現好」換取安全感。認可對你來說不只是稱讚,更像是一種確認 —— 確認自己值得被留在這裡。",
+        "所以你很少放鬆,因為放鬆的瞬間,好像就會被看穿。但其實,真正讓人靠近的,從來不是你有多完美,而是你敢不敢被看見真實的樣子。"
+      ]
+    },
+    B: {
+      title: "你怕的不是孤單,是失去被理解的可能",
+      body: [
+        "你在意的關係,是那種不用解釋太多、對方也懂你在想什麼的連結。所以比起失去一個人,你更怕的是,再也遇不到這麼懂你的人。",
+        "這份重視是溫柔的,但也提醒你:安全感不能只放在一段關係裡。先學會理解自己,才有能力,也才有餘裕,好好接住別人。"
+      ]
+    },
+    C: {
+      title: "你怕的不是變窮,是失去『我很努力』的證明",
+      body: [
+        "位置和成就對你而言,是一種可以被看見的努力痕跡。你怕失去的,其實是那份「我一路走來不是白費的」的踏實感。",
+        "但成就會變動,位置也會流動。真正撐住你的,從來不是頭銜,而是你面對困難時展現出來的那份韌性 —— 那個部分,誰也拿不走。"
+      ]
+    },
+    D: {
+      title: "你怕的不是失去別人,是失去對自己的掌控",
+      body: [
+        "選自由的人,通常很早就學會照顧自己,也很清楚依賴會帶來風險。所以比起任何關係或成就,你更想守住的是「我可以自己決定」的餘地。",
+        "這份獨立很珍貴,但也別忘了,適度依靠別人不是失去自由,而是讓自由多一個人陪你走。真正的自由,是可以選擇靠近,而不是只能保持距離。"
+      ]
+    }
+  };
+
+  const options = document.querySelectorAll('.option');
+  const reveal = document.getElementById('reveal');
+  const eyebrow = document.getElementById('reveal-eyebrow');
+  const title = document.getElementById('reveal-title');
+  const body = document.getElementById('reveal-body');
+  const restart = document.getElementById('restart');
+
+  function selectOption(key, el){
+    options.forEach(o => {
+      o.classList.remove('selected', 'dimmed');
+      if(o !== el) o.classList.add('dimmed');
+    });
+    el.classList.add('selected');
+    el.classList.remove('dimmed');
+
+    const data = analyses[key];
+    eyebrow.textContent = '你選了 ' + key;
+    title.textContent = data.title;
+    body.innerHTML = data.body.map(p => `<p>${p}</p>`).join('');
+
+    reveal.classList.add('open');
+
+    setTimeout(() => {
+      reveal.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 150);
+  }
+
+  options.forEach(el => {
+    el.addEventListener('click', () => selectOption(el.dataset.key, el));
+  });
+
+  restart.addEventListener('click', () => {
+    options.forEach(o => o.classList.remove('selected', 'dimmed'));
+    reveal.classList.remove('open');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>
