@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>公司最該開除的人｜職場觀察</title>
+<style>
+  :root{
+    --paper:#F7F1E8;
+    --ink:#2B2620;
+    --ink-soft:#7A7266;
+    --rose:#B5715C;
+    --rose-deep:#8F5544;
+    --line:#E3D9C8;
+    --card:#FFFDF9;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Serif TC","Noto Sans TC","PingFang TC",serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .stage{
+    max-width:520px;
+    margin:0 auto;
+    padding:56px 26px 60px;
+  }
+
+  .eyebrow{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:13px;
+    letter-spacing:2px;
+    color:var(--rose);
+    text-align:center;
+    margin-bottom:18px;
+  }
+  h1{
+    font-size:clamp(28px,7vw,38px);
+    line-height:1.5;
+    font-weight:700;
+    text-align:center;
+    margin:0 0 14px;
+  }
+  .lede{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:15px;
+    line-height:1.9;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 12px;
+  }
+  .divider{
+    width:36px;height:2px;background:var(--rose);
+    margin:0 auto 40px;
+  }
+
+  .question{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:16px;
+    font-weight:700;
+    text-align:center;
+    margin:0 0 22px;
+  }
+
+  .options{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .qa-block{
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-radius:4px;
+    overflow:hidden;
+    transition:border-color .2s;
+  }
+  .qa-block.open{
+    border-color:var(--rose);
+  }
+
+  .opt{
+    font-family:"Noto Sans TC",sans-serif;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    padding:16px 18px;
+    font-size:16px;
+    font-weight:600;
+    color:var(--ink);
+    cursor:pointer;
+  }
+  .opt .letter{
+    flex:0 0 auto;
+    width:28px;height:28px;
+    border-radius:50%;
+    border:1.5px solid var(--rose);
+    color:var(--rose-deep);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;
+    font-weight:700;
+    transition:background .2s, color .2s;
+  }
+  .qa-block.open .opt .letter{
+    background:var(--rose);
+    color:#fff;
+  }
+  .opt .arrow{
+    margin-left:auto;
+    font-size:13px;
+    color:var(--ink-soft);
+    transition:transform .2s;
+  }
+  .qa-block.open .opt .arrow{
+    transform:rotate(180deg);
+  }
+
+  .answer{
+    font-family:"Noto Sans TC",sans-serif;
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .3s ease;
+  }
+  .qa-block.open .answer{
+    max-height:400px;
+  }
+  .answer-inner{
+    padding:0 20px 22px 62px;
+    font-size:15px;
+    line-height:2;
+    color:var(--ink);
+  }
+
+  footer{
+    margin-top:44px;
+    text-align:center;
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:11.5px;
+    color:var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="eyebrow">職場觀察 · 自我覺察</div>
+  <h1>公司最該開除的人<br>不是能力差</h1>
+  <p class="lede">是每天製造內耗的人</p>
+  <div class="divider"></div>
+
+  <p class="question">你覺得職場最可怕的是哪一種？點選看提醒</p>
+
+  <div class="options">
+
+    <div class="qa-block" id="block-a">
+      <button class="opt" onclick="toggle('a')">
+        <span class="letter">A</span>
+        <span>能力差</span>
+        <span class="arrow">▾</span>
+      </button>
+      <div class="answer">
+        <div class="answer-inner">
+          能力差看起來最刺眼，其實是最好處理的問題——你可以訓練、可以調崗、可以給時間。真正難處理的，是能力很好但心思不正的人，因為他們的產出會讓主管捨不得動他，卻在背地裡持續消耗團隊信任。所以能力差從來不是最可怕的，可怕的是主管只看得到產能，看不到他正在毀掉的東西。
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-block" id="block-b">
+      <button class="opt" onclick="toggle('b')">
+        <span class="letter">B</span>
+        <span>愛傳話</span>
+        <span class="arrow">▾</span>
+      </button>
+      <div class="answer">
+        <div class="answer-inner">
+          愛傳話的人有個共同話術，叫「這個我只跟你說」。問題是，他跟每個人都這樣說過。這種人最厲害的地方不是嘴碎，而是讓整個團隊慢慢學會「不說真話比較安全」——久而久之，開會沒人提意見，私下卻都在討論。等你發現團隊氛圍不對勁的時候，通常已經內耗了很久。
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-block" id="block-c">
+      <button class="opt" onclick="toggle('c')">
+        <span class="letter">C</span>
+        <span>搞小圈圈</span>
+        <span class="arrow">▾</span>
+      </button>
+      <div class="answer">
+        <div class="answer-inner">
+          小圈圈可怕的地方，不是排擠了誰，而是它把「你是不是自己人」變得比「你做得好不好」更重要。一旦評價標準從產出變成站隊，團隊裡最認真做事的人反而最容易被邊緣化，因為他沒空經營關係。最後留下來的，往往是最會來事、而不是最會做事的人。
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>本內容為職場觀察與分享，非正式心理測驗或診斷</footer>
+</div>
+
+<script>
+  function toggle(key){
+    const id = 'block-' + key;
+    const el = document.getElementById(id);
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.qa-block').forEach(b => b.classList.remove('open'));
+    if(!isOpen){
+      el.classList.add('open');
+    }
+  }
+</script>
+
+</body>
+</html>
