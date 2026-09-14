@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>最可怕的不是沒賺到錢｜財務決策模型</title>
+<style>
+  :root{
+    --paper:#20130A;
+    --ink:#F7E9CE;
+    --ink-soft:#C7A876;
+    --rose:#E0A84A;
+    --rose-deep:#F4C874;
+    --line:#4A3018;
+    --card:#2E1B0F;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Serif TC","Noto Sans TC","PingFang TC",serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .stage{
+    max-width:560px;
+    margin:0 auto;
+    padding:0 0 70px;
+  }
+
+  .hero{
+    background:
+      linear-gradient(180deg, rgba(20,12,6,0.1) 0%, rgba(20,12,6,0.5) 55%, rgba(32,19,10,1) 100%),
+      linear-gradient(160deg, #2B160B 0%, #6B3A16 35%, #C9772E 62%, #E8A94A 80%, #F4C874 100%);
+    padding:60px 26px 46px;
+    text-align:center;
+  }
+  .eyebrow{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:13px;
+    letter-spacing:3px;
+    color:#F4D9A6;
+    margin-bottom:20px;
+  }
+  h1{
+    font-size:clamp(26px,7vw,36px);
+    line-height:1.55;
+    font-weight:900;
+    margin:0 0 16px;
+    color:#FDF3DD;
+    text-shadow:0 2px 14px rgba(0,0,0,0.35);
+  }
+  .lede{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:14.5px;
+    line-height:1.9;
+    color:#E7CFA2;
+    margin:0;
+  }
+  .divider{
+    width:48px;height:2px;
+    background:linear-gradient(90deg, transparent, #F4D9A6, transparent);
+    margin:22px auto 0;
+  }
+
+  .body-content{
+    padding:44px 26px 0;
+  }
+
+  .cards{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-bottom:44px;
+  }
+  .info-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:22px 22px;
+  }
+  .info-card .tag{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:11.5px;
+    letter-spacing:1.5px;
+    color:var(--rose);
+    margin-bottom:10px;
+    display:block;
+  }
+  .info-card p{
+    font-size:17px;
+    line-height:1.85;
+    font-weight:500;
+    margin:0;
+  }
+  .info-card p .accent{
+    color:var(--rose-deep);
+    font-weight:700;
+  }
+
+  .question{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:16px;
+    font-weight:700;
+    text-align:center;
+    margin:0 0 4px;
+  }
+  .question-sub{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:0 0 22px;
+  }
+
+  .options{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .qa-block{
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-radius:4px;
+    overflow:hidden;
+    transition:border-color .2s;
+  }
+  .qa-block.open{
+    border-color:var(--rose);
+  }
+
+  .opt{
+    font-family:"Noto Sans TC",sans-serif;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    padding:16px 18px;
+    font-size:16px;
+    font-weight:600;
+    color:var(--ink);
+    cursor:pointer;
+  }
+  .opt .letter{
+    flex:0 0 auto;
+    width:28px;height:28px;
+    border-radius:50%;
+    border:1.5px solid var(--rose);
+    color:var(--rose-deep);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;
+    font-weight:700;
+    transition:background .2s, color .2s;
+  }
+  .qa-block.open .opt .letter{
+    background:var(--rose);
+    color:#2A1E14;
+  }
+  .opt .arrow{
+    margin-left:auto;
+    font-size:13px;
+    color:var(--ink-soft);
+    transition:transform .2s;
+  }
+  .qa-block.open .opt .arrow{
+    transform:rotate(180deg);
+  }
+
+  .answer{
+    font-family:"Noto Sans TC",sans-serif;
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .35s ease;
+  }
+  .qa-block.open .answer{
+    max-height:900px;
+  }
+  .answer-inner{
+    padding:0 22px 24px 62px;
+    font-size:15px;
+    line-height:1.95;
+    color:var(--ink);
+  }
+  .model-name{
+    display:inline-block;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:1px;
+    color:#2A1E14;
+    background:var(--rose);
+    padding:3px 10px;
+    border-radius:999px;
+    margin-bottom:12px;
+  }
+  .desc{
+    margin:0 0 14px;
+  }
+  .key-line{
+    font-weight:700;
+    color:var(--ink);
+    margin:0 0 14px;
+    padding-left:12px;
+    border-left:3px solid var(--rose);
+  }
+  .steps-label{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    letter-spacing:1px;
+    margin-bottom:8px;
+  }
+  .steps{
+    margin:0 0 4px;
+    padding-left:20px;
+  }
+  .steps li{
+    margin-bottom:6px;
+  }
+
+  .summary{
+    margin-top:36px;
+    background:linear-gradient(135deg, #2B160B 0%, #5A3418 60%, #8C5A24 100%);
+    color:#FDF3DD;
+    border-radius:4px;
+    padding:30px 26px;
+    text-align:center;
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:16px;
+    line-height:1.9;
+    font-weight:500;
+  }
+  .summary .accent{
+    color:#F4D9A6;
+    font-weight:700;
+  }
+
+  footer{
+    margin-top:40px;
+    text-align:center;
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    padding:0 26px;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="hero">
+    <div class="eyebrow">理財觀察 · 現金流思維</div>
+    <h1>最可怕的不是沒賺到錢<br>是賺到了卻留不住</h1>
+    <p class="lede">很多人不是窮，是現金流太薄</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="body-content">
+
+  <p class="question">理財測驗｜如果你突然多了一筆錢，會先做什麼？</p>
+  <p class="question-sub">點選看你的金錢模式與行動建議</p>
+
+  <div class="options">
+
+    <div class="qa-block" id="block-a">
+      <button class="opt" onclick="toggle('a')">
+        <span class="letter">A</span>
+        <span>先買想買很久的東西</span>
+        <span class="arrow">▾</span>
+      </button>
+      <div class="answer">
+        <div class="answer-inner">
+          <span class="model-name">金錢模式 A · 消費優先型</span>
+          <p class="desc">你重視即時滿足，也願意用花錢犒賞自己。這不是錯，但風險是：收入一變高，支出也跟著變高，最後看起來賺很多，實際上抗風險能力很低。</p>
+          <p class="key-line">你需要建立的是：先保護，再享受。</p>
+          <div class="steps-label">建議順序</div>
+          <ol class="steps">
+            <li>留 6–12 個月緊急預備金</li>
+            <li>控制固定支出不要超過月收入 50%</li>
+            <li>大額消費前，先確認它不會增加長期負債壓力</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-block" id="block-b">
+      <button class="opt" onclick="toggle('b')">
+        <span class="letter">B</span>
+        <span>先存起來，之後再說</span>
+        <span class="arrow">▾</span>
+      </button>
+      <div class="answer">
+        <div class="answer-inner">
+          <span class="model-name">金錢模式 B · 儲蓄保守型</span>
+          <p class="desc">你有安全感意識，知道錢不能亂花。但如果錢只是一直放著，長期可能被通膨吃掉購買力。</p>
+          <p class="key-line">你需要建立的是：先穩定，再配置。</p>
+          <div class="steps-label">建議順序</div>
+          <ol class="steps">
+            <li>緊急預備金獨立放好</li>
+            <li>把錢分成生活帳戶、儲蓄帳戶、投資帳戶</li>
+            <li>學會用低風險、可理解的方式建立現金流</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa-block" id="block-c">
+      <button class="opt" onclick="toggle('c')">
+        <span class="letter">C</span>
+        <span>先規劃現金流跟風險</span>
+        <span class="arrow">▾</span>
+      </button>
+      <div class="answer">
+        <div class="answer-inner">
+          <span class="model-name">金錢模式 C · 現金流規劃型</span>
+          <p class="desc">你已經不是只看「我有多少錢」，而是看「這筆錢能不能持續替我創造選擇」。這是比較成熟的理財思維。</p>
+          <p class="key-line">你要注意的是：別只追求報酬率，也要看風險跟流動性。</p>
+          <div class="steps-label">建議順序</div>
+          <ol class="steps">
+            <li>分散收入來源</li>
+            <li>避免過度槓桿</li>
+            <li>投資前先問：最壞情況我扛不扛得住？</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="summary">
+    真正的理財，不是讓你<span class="accent">看起來更有錢</span>，<br>
+    而是讓你在出事的時候，<span class="accent">不會只剩面子</span>。
+  </div>
+
+  <footer>本內容為理財觀念分享，非投資建議</footer>
+  </div>
+</div>
+
+<script>
+  function toggle(key){
+    const id = 'block-' + key;
+    const el = document.getElementById(id);
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.qa-block').forEach(b => b.classList.remove('open'));
+    if(!isOpen){
+      el.classList.add('open');
+    }
+  }
+</script>
+
+</body>
+</html>
